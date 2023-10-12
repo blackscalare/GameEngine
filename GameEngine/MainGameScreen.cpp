@@ -7,7 +7,7 @@ MainGameScreen::MainGameScreen()
 {
     isRunning = true;
     snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
-    food.foodObjects.insert(Position(50, 50));
+    food.foodObjects.insert(Position(300, 300));
     currentDirection = UP;
 }
 
@@ -32,78 +32,40 @@ int MainGameScreen::Show()
 
         DrawText(scoreText, GetScreenWidth() - MeasureText(scoreText, 30) - 10, 30, 30, GREEN);
 
-        // Only head should be affected by this movement
-        // The other parts move to the previous parts location
-        /*for (Position* p : snake.parts) {
-            switch (currentDirection) {
-            case UP:
-                p->y -= 10;
-                break;
-            case RIGHT:
-                p->x += 10;
-                break;
-            case DOWN:
-                p->y += 10;
-                break;
-            case LEFT:
-                p->x -= 10;
-                break;
-            }
-
-            if (SnakeHasCollided(&snake)) {
-                isRunning = false;
-            }
-
-            DrawRectangle(p->x, p->y, snake.width, snake.height, WHITE);
-        }*/
         Position previousPartLocation;
         for (int i = 0; i < snake.parts.size(); ++i) {
             Position* p = snake.parts[i];
-
-            
+                        
             if (i == 0) {
                 previousPartLocation = *p;
-                switch (currentDirection) {
-                case UP:
-                    p->y -= 10;
-                    break;
-                case RIGHT:
-                    p->x += 10;
-                    break;
-                case DOWN:
-                    p->y += 10;
-                    break;
-                case LEFT:
-                    p->x -= 10;
-                    break;
+                // Forbid 180 turns
+                if (!Did180Turn()) {
+                    switch (currentDirection) {
+                    case UP:
+                        p->y -= 10;
+                        break;
+                    case RIGHT:
+                        p->x += 10;
+                        break;
+                    case DOWN:
+                        p->y += 10;
+                        break;
+                    case LEFT:
+                        p->x -= 10;
+                        break;
+                    }
                 }
 
-                if (SnakeHasCollided(&snake)) {
+                if (SnakeHasCollided()) {
                     isRunning = false;
                 }
             }
             else {
-                int direction = 1;
-                switch (currentDirection) {
-                case UP:
-                    direction = -1;
-                    break;
-                case RIGHT:
-                    direction = -1;
-                    break;
-                case DOWN:
-                    direction = 1;
-                    break;
-                case LEFT:
-                    direction = 1;
-                    break;
-                }
+                Position tmp = *p;
                 p->x = previousPartLocation.x;
                 p->y = previousPartLocation.y;
-                previousPartLocation = *p;
+                previousPartLocation = tmp;
             }
-
-            std::cout << previousPartLocation.x << " " << previousPartLocation.y << std::endl;
 
             DrawRectangle(p->x, p->y, snake.width, snake.height, WHITE);
         }
@@ -135,6 +97,7 @@ int MainGameScreen::Show()
 }
 
 void MainGameScreen::HandleKeyPress() {
+    previousDirection = currentDirection;
     if (IsKeyPressed(KEY_UP)) {
         currentDirection = UP;
     }
@@ -152,11 +115,21 @@ void MainGameScreen::HandleKeyPress() {
     }
 }
 
-bool MainGameScreen::SnakeHasCollided(Snake* snake) {
-    for (Position* p : snake->parts) {
-        bool hasCollidedWithBorderX = (p->x + snake->width >= GetScreenWidth()) || (p->x - snake->width <= 0);
-        bool hasCollidedWithBorderY = (p->y + snake->height >= GetScreenHeight()) || (p->y - snake->height <= 0);
-        if (hasCollidedWithBorderX || hasCollidedWithBorderY) {
+bool MainGameScreen::SnakeHasCollided() {
+    // Only check if the head has collided with the wall to prevent issues
+    Position* p = snake.parts[0];
+    bool hasCollidedWithBorderX = (p->x + snake.width >= GetScreenWidth()) || (p->x - snake.width <= 0);
+    bool hasCollidedWithBorderY = (p->y + snake.height >= GetScreenHeight()) || (p->y - snake.height <= 0);
+    if (hasCollidedWithBorderX || hasCollidedWithBorderY) {
+        return true;
+    }
+    
+    // Check if the head has collided with any other part of the body
+    for (int i = 1; i < snake.parts.size(); ++i) {
+        Position* bodyP = snake.parts[i];
+        bool horizontalCollision = (p->x < bodyP->x + food.width) && (p->x + snake.width > bodyP->x);
+        bool verticalCollision = (p->y < bodyP->y + food.height) && (p->y + snake.height > bodyP->y);
+        if (horizontalCollision && verticalCollision) {
             return true;
         }
     }
@@ -207,7 +180,15 @@ void MainGameScreen::SpawnFood(Snake snake)
 
 void MainGameScreen::AddSnakePart()
 {
-    // check the last parts location, compensate for radius and direction
     Position* p = snake.parts[snake.parts.size() - 1];
-    snake.parts.push_back(new Position(p->x + snake.width, p->y + snake.height));
+    snake.parts.push_back(new Position());
+}
+
+bool MainGameScreen::Did180Turn()
+{
+    return (currentDirection == UP && previousDirection == DOWN)
+        || (currentDirection == DOWN && previousDirection == UP)
+        || (currentDirection == LEFT && previousDirection == RIGHT)
+        || (currentDirection == DOWN && previousDirection == UP);
+
 }
