@@ -132,6 +132,7 @@
     <ClCompile Include="MainGameScreen.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
     <ClCompile Include="Tools.cpp" />
@@ -142,7 +143,9 @@
     <ClInclude Include="MainGameScreen.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="Snake.h" />
+    <ClInclude Include="Structs.h" />
     <ClInclude Include="TitleScreen.h" />
     <ClInclude Include="Tools.h" />
   </ItemGroup>

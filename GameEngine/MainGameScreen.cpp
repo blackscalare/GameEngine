@@ -3,22 +3,44 @@
 #include "Position.h"
 #include <random>
 
+#define MOVE_SPEED_EASY 5
+#define MOVE_SPEED_MEDIUM 10
+#define MOVE_SPEED_HARD 15
+
 MainGameScreen::MainGameScreen()
 {
     isRunning = true;
     snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
-    food.foodObjects.insert(Position(300, 300));
+    snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
+    snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
+    // Spawn initial food
+    SpawnFood();
     currentDirection = UP;
+    moveSpeed = 10;
 }
 
 int MainGameScreen::Show()
 {
+    switch (settings->GetDifficultySetting()) {
+    case EASY:
+        moveSpeed = MOVE_SPEED_EASY;
+        std::cout << "Move speed is easy\n";
+        break;
+    case MEDIUM:
+        moveSpeed = MOVE_SPEED_MEDIUM;
+        std::cout << "Move speed is medium\n";
+        break;
+    case HARD:
+        moveSpeed = MOVE_SPEED_HARD;
+        std::cout << "Move speed is hard\n";
+        break;
+    }
     int cycles = 0;
     while (isRunning) {
         cycles += 1;
         // spawn food every 30th second
         if (cycles % (15 * 30) == 0) {
-            SpawnFood(snake);
+            SpawnFood();
             cycles = 0;
         }
         ClearBackground(BLACK);
@@ -39,25 +61,24 @@ int MainGameScreen::Show()
             if (i == 0) {
                 previousPartLocation = *p;
                 // Forbid 180 turns
-                if (!Did180Turn()) {
-                    switch (currentDirection) {
-                    case UP:
-                        p->y -= 10;
-                        break;
-                    case RIGHT:
-                        p->x += 10;
-                        break;
-                    case DOWN:
-                        p->y += 10;
-                        break;
-                    case LEFT:
-                        p->x -= 10;
-                        break;
-                    }
+                PerformedInvalidMovement(*p, previousPartLocation);
+                switch (currentDirection) {
+                case UP:
+                    p->y -= moveSpeed;
+                    break;
+                case RIGHT:
+                    p->x += moveSpeed;
+                    break;
+                case DOWN:
+                    p->y += moveSpeed;
+                    break;
+                case LEFT:
+                    p->x -= moveSpeed;
+                    break;
                 }
 
                 if (SnakeHasCollided()) {
-                    isRunning = false;
+                    //isRunning = false;
                 }
             }
             else {
@@ -80,7 +101,7 @@ int MainGameScreen::Show()
                     food.foodObjects.erase(p);
 
                     //instantly spawn new food
-                    SpawnFood(snake);
+                    SpawnFood();
 
                     // Stop iterating and redraw everything
                     break;
@@ -147,7 +168,7 @@ bool MainGameScreen::SnakeCanEatFood(Position foodPosition)
     return horizontalCollision && verticalCollision;
 }
 
-void MainGameScreen::SpawnFood(Snake snake)
+void MainGameScreen::SpawnFood()
 {
     // Take a position that is far enough away from the snake head but not inside one of the parts
     std::random_device rd;
@@ -155,9 +176,9 @@ void MainGameScreen::SpawnFood(Snake snake)
 
     bool gotGoodCoords = false;
     while (!gotGoodCoords) {
-        int minX = 0 + food.width;
+        int minX = food.width;
         int maxX = GetScreenWidth() - food.width;
-        int minY = 0 + food.height;
+        int minY = food.height;
         int maxY = GetScreenHeight() - food.height;
 
         std::uniform_int_distribution<int> distributionX(minX, maxX);
@@ -184,11 +205,13 @@ void MainGameScreen::AddSnakePart()
     snake.parts.push_back(new Position());
 }
 
-bool MainGameScreen::Did180Turn()
+bool MainGameScreen::PerformedInvalidMovement(Position currentPosition, Position previousPosition)
 {
-    return (currentDirection == UP && previousDirection == DOWN)
+    /*if ((currentDirection == UP && previousDirection == DOWN)
         || (currentDirection == DOWN && previousDirection == UP)
         || (currentDirection == LEFT && previousDirection == RIGHT)
-        || (currentDirection == DOWN && previousDirection == UP);
-
+        || (currentDirection == DOWN && previousDirection == UP)) {
+        currentDirection = previousDirection;
+    }*/
+    return currentPosition == previousPosition;
 }

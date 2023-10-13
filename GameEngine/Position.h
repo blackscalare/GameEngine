@@ -9,4 +9,8 @@ public:
 	bool operator<(const Position& other) const {
 		return x + y < other.x + other.y;
 	}
+
+	bool operator==(const Position& other) const {
+		return x == other.x && y == other.y;
+	}
 };

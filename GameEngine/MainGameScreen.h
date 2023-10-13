@@ -2,14 +2,7 @@
 #include "Scene.h"
 #include "Snake.h"
 #include "Food.h"
-
-enum CurrentDirection
-{
-	UP,
-	RIGHT,
-	LEFT,
-	DOWN
-};
+#include "Structs.h"
 
 class MainGameScreen : public Scene
 {
@@ -19,9 +12,9 @@ public:
 	void HandleKeyPress();
 	bool SnakeHasCollided();
 	bool SnakeCanEatFood(Position food);
-	void SpawnFood(Snake snake);
+	void SpawnFood();
 	void AddSnakePart();
-	bool Did180Turn();
+	bool PerformedInvalidMovement(Position currentPosition, Position previousPosition);
 private:
 	bool isRunning;
 	CurrentDirection currentDirection;
@@ -29,5 +22,6 @@ private:
 	Snake snake;
 	Food food;
 	int score;
+	int moveSpeed;
 };
 
