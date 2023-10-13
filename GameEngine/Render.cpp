@@ -2,6 +2,7 @@
 #include "Tools.h"
 #include "TitleScreen.h"
 #include "MainGameScreen.h"
+#include "_3DScene.h"
 
 int Render::Start()
 {
@@ -10,6 +11,8 @@ int Render::Start()
 
     TitleScreen ts;
     MainGameScreen mgs;
+    _3DScene scne;
+    scne.Show();
 
     int returnValue = ts.Show();
     if(returnValue != 1)

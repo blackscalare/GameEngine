@@ -136,6 +136,7 @@
     <ClCompile Include="Snake.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
     <ClCompile Include="Tools.cpp" />
+    <ClCompile Include="_3DScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Food.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Structs.h" />
     <ClInclude Include="TitleScreen.h" />
     <ClInclude Include="Tools.h" />
+    <ClInclude Include="_3DScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
