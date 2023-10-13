@@ -8,9 +8,5 @@ enum DifficultySetting {
 
 class Settings {
 public:
-	Settings();
-	void SetDifficultySetting(DifficultySetting difficultySetting);
-	DifficultySetting GetDifficultySetting();
-private:
-	DifficultySetting difficultySetting;
+	static DifficultySetting difficultySetting;
 };

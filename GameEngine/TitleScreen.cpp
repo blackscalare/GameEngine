@@ -6,27 +6,30 @@ TitleScreen::TitleScreen()
     fontSizeTitle = 30;
     fontSizeInfo = 20;
     fontSizeDifficulty = 20;
+    fontSizeExit = 20;
     titleY = fontSizeTitle + 20;
-    infoY = GetScreenHeight() - fontSizeInfo - 50;
+    infoY = GetScreenHeight() - fontSizeInfo - 20;
     easyY = titleY + 50;
     mediumY = easyY + 20;
     hardY = mediumY + 20;
+    exitY = infoY - 50;
     titleText = "Menu Title";
     infoText = "Press enter to start game";
     easyText = "Easy";
     mediumText = "Medium";
     hardText = "Hard";
+    exitText = "Exit";
 }
 
 int TitleScreen::Show()
 {
-    int selectedDifficulty = 0;
+    int selectedMenuItem = 0;
     while (shouldShow) {
         ClearBackground(BLACK);
 
         BeginDrawing();
 
-        SetSelectedDifficulty(selectedDifficulty);
+        SetSelectedDifficulty(selectedMenuItem);
         
         DrawText(titleText, Tools::Text::CenterTextX(titleText, fontSizeTitle), fontSizeTitle + 20, fontSizeTitle, RAYWHITE);
 
@@ -34,22 +37,26 @@ int TitleScreen::Show()
         DrawText(mediumText, Tools::Text::CenterTextX(mediumText, fontSizeDifficulty), mediumY, fontSizeDifficulty, RAYWHITE);
         DrawText(hardText, Tools::Text::CenterTextX(hardText, fontSizeDifficulty), hardY, fontSizeDifficulty, RAYWHITE);
 
-        DrawText(infoText, Tools::Text::CenterTextX(infoText, fontSizeInfo), GetScreenHeight() - fontSizeInfo - 50, fontSizeInfo, RAYWHITE);
+        DrawText(exitText, Tools::Text::CenterTextX(exitText, fontSizeExit), exitY, fontSizeExit, RAYWHITE);
+        DrawText(infoText, Tools::Text::CenterTextX(infoText, fontSizeInfo), infoY, fontSizeInfo, RAYWHITE);
 
         if (IsKeyPressed(KEY_ENTER)) {
+            if (selectedMenuItem == 3) {
+                return 1;
+            }
             shouldShow = false;
-            settings->SetDifficultySetting(static_cast<DifficultySetting>(selectedDifficulty));
+            Settings::difficultySetting = static_cast<DifficultySetting>(selectedMenuItem);
         }
 
         if (IsKeyPressed(KEY_DOWN)) {
-            if (selectedDifficulty < 2) {
-                selectedDifficulty++;
+            if (selectedMenuItem < 3) {
+                selectedMenuItem++;
             }
         }
         
         if (IsKeyPressed(KEY_UP)) {
-            if (selectedDifficulty > 0) {
-                selectedDifficulty--;
+            if (selectedMenuItem > 0) {
+                selectedMenuItem--;
             }
         }
 
@@ -66,16 +73,24 @@ void TitleScreen::SetSelectedDifficulty(int selectedDifficulty)
         easyText = ">Easy";
         mediumText = "Medium";
         hardText = "Hard";
+        exitText = "Exit";
         break;
     case 1:
         easyText = "Easy";
         mediumText = ">Medium";
         hardText = "Hard";
+        exitText = "Exit";
         break;
     case 2:
         easyText = "Easy";
         mediumText = "Medium";
         hardText = ">Hard";
+        exitText = "Exit";
         break;
+    case 3:
+        easyText = "Easy";
+        mediumText = "Medium";
+        hardText = "Hard";
+        exitText = ">Exit";
     }
 }

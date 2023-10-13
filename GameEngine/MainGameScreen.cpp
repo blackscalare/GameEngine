@@ -21,20 +21,18 @@ MainGameScreen::MainGameScreen()
 
 int MainGameScreen::Show()
 {
-    switch (settings->GetDifficultySetting()) {
+    switch (Settings::difficultySetting) {
     case EASY:
         moveSpeed = MOVE_SPEED_EASY;
-        std::cout << "Move speed is easy\n";
         break;
     case MEDIUM:
         moveSpeed = MOVE_SPEED_MEDIUM;
-        std::cout << "Move speed is medium\n";
         break;
     case HARD:
         moveSpeed = MOVE_SPEED_HARD;
-        std::cout << "Move speed is hard\n";
         break;
     }
+
     int cycles = 0;
     while (isRunning) {
         cycles += 1;

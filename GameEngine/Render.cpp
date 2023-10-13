@@ -11,8 +11,9 @@ int Render::Start()
     TitleScreen ts;
     MainGameScreen mgs;
 
-    ts.Show();
-    mgs.Show();
+    int returnValue = ts.Show();
+    if(returnValue != 1)
+        mgs.Show();
 
 
 	CloseWindow();

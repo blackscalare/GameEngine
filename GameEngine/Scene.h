@@ -7,6 +7,5 @@ class Scene
 {
 public:
 	virtual int Show();
-	Settings* settings = new Settings();
 };
 
