@@ -14,7 +14,7 @@ public:
 	bool SnakeCanEatFood(Position food);
 	void SpawnFood();
 	void AddSnakePart();
-	bool PerformedInvalidMovement(Position currentPosition, Position previousPosition);
+	void PreventInvalidMovement(Position currentPosition);
 private:
 	bool isRunning;
 	CurrentDirection currentDirection;

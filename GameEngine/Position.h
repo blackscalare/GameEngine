@@ -1,7 +1,8 @@
 #pragma once
 class Position {
 public:
-	Position() {};
+	// Creates a point outisde visible range
+	Position() { x = -100; y = -100; };
 	Position(int x, int y) { this->x = x; this->y = y; }
 	int x;
 	int y;

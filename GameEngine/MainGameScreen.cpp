@@ -10,9 +10,11 @@
 MainGameScreen::MainGameScreen()
 {
     isRunning = true;
+    // Set the head location
     snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
-    snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
-    snake.parts.push_back(new Position((GetScreenHeight() - snake.width) / 2, (GetScreenHeight() - snake.height) / 2));
+    // Add additional snake parts
+    AddSnakePart();
+    AddSnakePart();
     // Spawn initial food
     SpawnFood();
     currentDirection = UP;
@@ -58,8 +60,8 @@ int MainGameScreen::Show()
                         
             if (i == 0) {
                 previousPartLocation = *p;
-                // Forbid 180 turns
-                PerformedInvalidMovement(*p, previousPartLocation);
+                // Forbid 180 
+                PreventInvalidMovement(*p);
                 switch (currentDirection) {
                 case UP:
                     p->y -= moveSpeed;
@@ -76,7 +78,7 @@ int MainGameScreen::Show()
                 }
 
                 if (SnakeHasCollided()) {
-                    //isRunning = false;
+                    isRunning = false;
                 }
             }
             else {
@@ -146,11 +148,8 @@ bool MainGameScreen::SnakeHasCollided() {
     // Check if the head has collided with any other part of the body
     for (int i = 1; i < snake.parts.size(); ++i) {
         Position* bodyP = snake.parts[i];
-        bool horizontalCollision = (p->x < bodyP->x + food.width) && (p->x + snake.width > bodyP->x);
-        bool verticalCollision = (p->y < bodyP->y + food.height) && (p->y + snake.height > bodyP->y);
-        if (horizontalCollision && verticalCollision) {
+        if (p->x == bodyP->x && p->y == bodyP->y)
             return true;
-        }
     }
 
     return false;
@@ -203,13 +202,27 @@ void MainGameScreen::AddSnakePart()
     snake.parts.push_back(new Position());
 }
 
-bool MainGameScreen::PerformedInvalidMovement(Position currentPosition, Position previousPosition)
+void MainGameScreen::PreventInvalidMovement(Position currentPosition)
 {
-    /*if ((currentDirection == UP && previousDirection == DOWN)
-        || (currentDirection == DOWN && previousDirection == UP)
-        || (currentDirection == LEFT && previousDirection == RIGHT)
-        || (currentDirection == DOWN && previousDirection == UP)) {
+    Position nextPosition = currentPosition;
+    Position partBehindHead = *(snake.parts[1]);
+
+    switch (currentDirection) {
+    case UP:
+        nextPosition.y -= moveSpeed;
+        break;
+    case RIGHT:
+        nextPosition.x += moveSpeed;
+        break;
+    case DOWN:
+        nextPosition.y += moveSpeed;
+        break;
+    case LEFT:
+        nextPosition.x -= moveSpeed;
+        break;
+    }
+    
+    if (nextPosition == partBehindHead) {
         currentDirection = previousDirection;
-    }*/
-    return currentPosition == previousPosition;
+    }
 }
