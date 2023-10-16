@@ -220,7 +220,8 @@ int _3DScene::Show()
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib [shapes] example - top down lights");
+    //InitWindow(screenWidth, screenHeight, "raylib [shapes] example - top down lights");
+    SetWindowSize(screenWidth, screenHeight);
 
     // Initialize our 'world' of boxes
     int boxCount = 0;

@@ -168,8 +168,6 @@ bool MainGameScreen::SnakeCanEatFood(Position foodPosition)
 void MainGameScreen::SpawnFood()
 {
     // Take a position that is far enough away from the snake head but not inside one of the parts
-    std::random_device rd;
-    std::mt19937 gen(rd());
 
     bool gotGoodCoords = false;
     while (!gotGoodCoords) {
@@ -178,11 +176,8 @@ void MainGameScreen::SpawnFood()
         int minY = food.height;
         int maxY = GetScreenHeight() - food.height;
 
-        std::uniform_int_distribution<int> distributionX(minX, maxX);
-        std::uniform_int_distribution<int> distributionY(minY, maxY);
-
-        int randomX = distributionX(gen);
-        int randomY = distributionY(gen);
+        int randomX = GetRandomValue(minX, maxX);
+        int randomY = GetRandomValue(minY, maxY);
 
         for (Position* p : snake.parts) {
             if ((randomX >= p->x + 30 || randomX <= p->x - 30) && (randomY >= p->y + 30 || randomY <= p->y - 30))

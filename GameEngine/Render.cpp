@@ -3,21 +3,33 @@
 #include "TitleScreen.h"
 #include "MainGameScreen.h"
 #include "_3DScene.h"
+#include "MapEditor2D.h"
+#include "FirstPersonDemo.h"
+#include "RogueLike.h"
 
 int Render::Start()
 {
-    InitWindow(WIDTH, HEIGHT, "Snake Clone");
+    InitWindow(WIDTH, HEIGHT, "Game Engine");
     SetTargetFPS(TARGET_FPS);
 
-    TitleScreen ts;
+    //TitleScreen ts = TitleScreen("RogueLike");
+    //int returnValue = ts.Show();
+    
     MainGameScreen mgs;
-    _3DScene scne;
+    /*_3DScene scne;
     scne.Show();
+    MapEditor2D mapEditor2D;
+    mapEditor2D.Show();
+    FirstPersonDemo firstPersonDemo;
+    firstPersonDemo.Show();*/
 
-    int returnValue = ts.Show();
-    if(returnValue != 1)
-        mgs.Show();
 
+    RogueLike rogueLike;
+    rogueLike.Show();
+
+    
+    //if(returnValue != 1)
+    //    mgs.Show();
 
 	CloseWindow();
 

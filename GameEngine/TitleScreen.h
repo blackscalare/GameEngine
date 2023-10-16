@@ -5,6 +5,7 @@ class TitleScreen : public Scene
 {
 public:
 	TitleScreen();
+	TitleScreen(const char* titleText);
 	int Show() override;
 private:
 	int shouldShow;

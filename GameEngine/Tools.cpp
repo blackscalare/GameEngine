@@ -32,3 +32,9 @@ std::string Tools::Debug::DirectionToString(CurrentDirection direction)
     default: return "";
     }
 }
+
+bool Tools::Vector::EraseVector2FromElement(const Vector2& element, const Vector2& rangeStart, const Vector2& rangeEnd)
+{
+    return (element.x >= rangeStart.x && element.x <= rangeEnd.x) &&
+        (element.y >= rangeStart.y && element.y <= rangeEnd.y);
+}

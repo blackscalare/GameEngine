@@ -21,6 +21,27 @@ TitleScreen::TitleScreen()
     exitText = "Exit";
 }
 
+TitleScreen::TitleScreen(const char* titleText)
+{
+    shouldShow = true;
+    fontSizeTitle = 30;
+    fontSizeInfo = 20;
+    fontSizeDifficulty = 20;
+    fontSizeExit = 20;
+    titleY = fontSizeTitle + 20;
+    infoY = GetScreenHeight() - fontSizeInfo - 20;
+    easyY = titleY + 50;
+    mediumY = easyY + 20;
+    hardY = mediumY + 20;
+    exitY = infoY - 50;
+    this->titleText = titleText;
+    infoText = "Press enter to start game";
+    easyText = "Easy";
+    mediumText = "Medium";
+    hardText = "Hard";
+    exitText = "Exit";
+}
+
 int TitleScreen::Show()
 {
     int selectedMenuItem = 0;

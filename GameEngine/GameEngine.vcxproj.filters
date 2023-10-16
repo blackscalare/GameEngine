@@ -42,6 +42,18 @@
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="_3DScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditor2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstPersonDemo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RogueLike.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render.h">
@@ -72,6 +84,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="_3DScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditor2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstPersonDemo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RogueLike.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

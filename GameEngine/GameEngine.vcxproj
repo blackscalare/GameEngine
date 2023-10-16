@@ -127,10 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FirstPersonDemo.cpp" />
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="MainGameScreen.cpp" />
+    <ClCompile Include="MapEditor2D.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="RogueLike.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Snake.cpp" />
@@ -139,10 +142,13 @@
     <ClCompile Include="_3DScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FirstPersonDemo.h" />
     <ClInclude Include="Food.h" />
+    <ClInclude Include="MapEditor2D.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="MainGameScreen.h" />
     <ClInclude Include="Render.h" />
+    <ClInclude Include="RogueLike.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Snake.h" />

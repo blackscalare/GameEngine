@@ -16,6 +16,11 @@ namespace Tools
 		void static DrawGrid();
 	};
 
+	class Vector {
+	public:
+		bool static EraseVector2FromElement(const Vector2& element, const Vector2& rangeStart, const Vector2& rangeEnd);
+	};
+
 	class Debug {
 	public:
 		std::string static DirectionToString(CurrentDirection direction);
