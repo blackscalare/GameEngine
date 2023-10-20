@@ -22,6 +22,11 @@ void Tools::Draw::DrawGrid()
     }
 }
 
+void Tools::Draw::CenterRectangleX(Rectangle* rectangle)
+{
+    rectangle->x = (GetScreenWidth() / 2.0f) - (rectangle->width / 2);
+}
+
 std::string Tools::Debug::DirectionToString(CurrentDirection direction)
 {
     switch (direction) {

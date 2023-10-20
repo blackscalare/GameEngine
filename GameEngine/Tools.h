@@ -14,6 +14,7 @@ namespace Tools
 	class Draw {
 	public:
 		void static DrawGrid();
+		void static CenterRectangleX(Rectangle* rectangle);
 	};
 
 	class Vector {

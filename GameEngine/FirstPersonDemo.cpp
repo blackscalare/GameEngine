@@ -30,14 +30,14 @@ int FirstPersonDemo::Show()
 
     // Define the camera to look into our 3d world
     Camera camera = { 0 };
-    camera.position = Vector3{ 0.2f, 0.4f, 0.2f };    // Camera position
+    camera.position = Vector3{ 12.0f, 0.4f, 12.0f };    // Camera position
     camera.target = Vector3{ 0.185f, 0.4f, 0.0f };    // Camera looking at point
     camera.up = Vector3{ 0.0f, 1.0f, 0.0f };          // Camera up vector (rotation towards target)
     camera.fovy = 90.0f;                                // Camera field-of-view Y
     camera.projection = CAMERA_PERSPECTIVE;             // Camera projection type
     Vector3 position = { 0.0f, 0.0f, 0.0f };            // Set model position
 
-    Image imMap = LoadImage("resources/cubicmap.png");      // Load cubicmap image (RAM)
+    Image imMap = LoadImage("resources/spaceship.png");      // Load cubicmap image (RAM)
     Texture2D cubicmap = LoadTextureFromImage(imMap);       // Convert image to texture to display (VRAM)
     Mesh mesh = GenMeshCubicmap(imMap, Vector3 { 1.0f, 1.1f, 1.0f });
     Model model = LoadModelFromMesh(mesh);
