@@ -43,3 +43,13 @@ bool Tools::Vector::EraseVector2FromElement(const Vector2& element, const Vector
     return (element.x >= rangeStart.x && element.x <= rangeEnd.x) &&
         (element.y >= rangeStart.y && element.y <= rangeEnd.y);
 }
+
+bool Tools::Vector::ValuesAreNull(const Vector2& vec)
+{
+    return vec.x == NULL && vec.y == NULL;
+}
+
+bool Tools::String::StringsAreEqual(const char* str1, const char* str2)
+{
+    return strcmp(str1, str2) == 0;
+}

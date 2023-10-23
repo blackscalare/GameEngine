@@ -20,6 +20,12 @@ namespace Tools
 	class Vector {
 	public:
 		bool static EraseVector2FromElement(const Vector2& element, const Vector2& rangeStart, const Vector2& rangeEnd);
+		bool static ValuesAreNull(const Vector2& vec);
+	};
+
+	class String {
+	public:
+		bool static StringsAreEqual(const char* str1, const char* str2);
 	};
 
 	class Debug {

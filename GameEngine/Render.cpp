@@ -26,11 +26,11 @@ int Render::Start()
     //firstPersonDemo.Show();
     //Space space;
     //space.Show();
-    Pong pong;
-    pong.Show();
+    //Pong pong;
+    //pong.Show();
 
-    //RogueLike rogueLike;
-    //rogueLike.Show();
+    RogueLike rogueLike;
+    rogueLike.Show();
 
     
     //if(returnValue != 1)
